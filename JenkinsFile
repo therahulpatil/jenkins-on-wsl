@@ -3,17 +3,17 @@ pipeline {
 	
 	environment {
 		DOCKER_USERNAME = "${DOCKER_USERNAME}"
-		
+		DOCKER_ACCESS_TOKEN = "${DOCKER_ACCESS_TOKEN}"
+		GIT_REPO = "${GIT_REPO}"
 	}
 
 	stages {
 
-		stage ('Stage 1') {
+		stage ('SCM') {
 	
-		
 			steps {
 
-				sh 'echo "Stage 1"'
+				git '${GIT_REPO}'
 			}
 	
 		}
