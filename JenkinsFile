@@ -2,9 +2,9 @@ pipeline {
 	agent any
 	
 	environment {
-		DOCKER_USERNAME = "${DOCKER_USERNAME}"
+		DOCKER_USERNAME = credentials('DOCKER_USERNAME')
 		DOCKER_ACCESS_TOKEN = "${DOCKER_ACCESS_TOKEN}"
-		GIT_REPO = "${GIT_REPO}"
+		GIT_REPO = credentials('GIT_REPO')
 	}
 
 	stages {
