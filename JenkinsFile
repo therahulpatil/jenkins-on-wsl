@@ -1,33 +1,26 @@
 pipeline {
-	agent any
-	
-	environment {
-		DOCKER_USERNAME = credentials('DOCKER_USERNAME')
-		DOCKER_ACCESS_TOKEN = credentials('DOCKER_ACCESS_TOKEN')
-		GIT_REPO = credentials('GIT_REPO')
-		DOCKER_IMAGE = 'jenkins-demo-image'
-        IMAGE_TAG = "{env.BUILD_NUMBER}"
-	}
+    agent any
 
-	stages {
+    environment {
+        DOCKER_USERNAME     = credentials('DOCKER_USERNAME')
+        DOCKER_ACCESS_TOKEN = credentials('DOCKER_ACCESS_TOKEN')
+        GIT_REPO            = credentials('GIT_REPO')
+        DOCKER_IMAGE        = 'jenkins-demo-image'
+        IMAGE_TAG           = "${env.BUILD_NUMBER}"
+    }
 
-		stage ('SCM') {
-	
-			steps {
+    stages {
+        stage('SCM') {
+            steps {
+                git url: "${env.GIT_REPO}", branch: 'main'
+            }
+        }
 
-				git url: "${env.GIT_REPO}" , branch: 'main'
-				
-			}
-	
-		}
-		
-		stage ('Build Docker Image'){
-		
-			steps{
-                sh "docker image build -t ${DOCKER_USERNAME}/${DOCKER_IMAGE}:${IMAGE_TAG} -t ${DOCKER_USERNAME}/${DOCKER_IMAGE}:latest ."
-			
-			}
-		}	
-	}
-
+        stage('Build Docker Image') {
+            steps {
+                // Using single quotes '$VAR' resolves the Jenkins secret-interpolation warning
+                sh 'docker image build -t $DOCKER_USERNAME/$DOCKER_IMAGE:$IMAGE_TAG -t $DOCKER_USERNAME/$DOCKER_IMAGE:latest .'
+            }
+        }
+    }
 }
