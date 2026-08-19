@@ -38,6 +38,7 @@ pipeline {
             }
         }
 
+/*       
         stage('Run Docker Container'){
             steps{
                 sh '''
@@ -49,7 +50,21 @@ pipeline {
                 '''
             }
         }
+*/
+        stage('Docker Swarm Service'){
+            steps{
+                sh '''
+                   docker service update
+                '''
+                
+            }
+        
+        }
+
+
+// Stages End
     }
+
 
 
 // Post Actions

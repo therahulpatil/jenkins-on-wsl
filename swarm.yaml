@@ -1,0 +1,27 @@
+services:
+    web:
+        image: ${DOCKER_USERNAME}/${DOCKER_IMAGE}:${IMAGE_TAG}
+    
+    ports:
+        - "9090:80"
+    deploy:
+        replicas: 3
+    
+        restart_policy:
+            condition: on-failure
+        
+        update_config:
+            parallelism: 1
+            delay : 10s
+            order: start-first
+        
+        rollback_confifg:
+            parallelism: 1
+            delay: 10s
+        
+        networks:
+            -jenkins-network
+
+networks:
+    jenkins-network:
+        driver: overlay
