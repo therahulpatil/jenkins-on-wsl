@@ -84,6 +84,15 @@ pipeline {
                 docker container prune -f
     
                 docker image prune -f
+
+                docker images "$DOCKER_USERNAME/$DOCKER_IMAGE" --format "{{.Tag}}" \
+                    | grep -E '^[0-9]+$' \
+                    | sort -n \
+                    | head -n 3 \
+                    | while read TAG
+                    do
+                        docker rmi "$DOCKER_USERNAME/$DOCKER_IMAGE:$TAG" || true
+                    done
             
                 docker builder prune -f
 
