@@ -8,6 +8,7 @@ pipeline {
         DOCKER_IMAGE        = 'jenkins-demo-image'
         IMAGE_TAG           = "${env.BUILD_NUMBER}"
         CONTAINER_NAME      = 'jenkins-demo'
+        SWARM_STACK         = 'jenkins-demo'
     }
 
     stages {
@@ -51,10 +52,15 @@ pipeline {
             }
         }
 */
-        stage('Docker Swarm Service'){
+        stage('Docker Swarm Stack'){
             steps{
                 sh '''
-                   docker service update
+                   docker stack deploy -c swarm.yaml $SWARM_STACK
+    
+                    sleep 10
+                    docker stack services $SWARM_STACK
+                    docker stack ps $SWARM_STACK
+                    curl -f http://localhost:9090
                 '''
                 
             }
