@@ -25,7 +25,7 @@ pipeline {
 		
 			steps{
 			
-				sh "docker image build -t ${env.DOCKER_USERNAME}/${DOCKER_IMAGE}:${IMAGE_TAG} ."	
+				sh 'docker image build -t ${env.DOCKER_USERNAME}/${DOCKER_IMAGE}:${IMAGE_TAG} .'
 			}
 		}	
 	}
