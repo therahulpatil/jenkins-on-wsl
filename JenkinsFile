@@ -24,8 +24,8 @@ pipeline {
 		stage ('Build Docker Image'){
 		
 			steps{
+                sh "docker image build -t ${DOCKER_USERNAME}/${DOCKER_IMAGE}:${IMAGE_TAG} -t ${DOCKER_USERNAME}/${DOCKER_IMAGE}:latest ."
 			
-				sh 'docker image build -t ${env.DOCKER_USERNAME}/${DOCKER_IMAGE}:${IMAGE_TAG} .'
 			}
 		}	
 	}
