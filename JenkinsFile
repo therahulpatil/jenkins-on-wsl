@@ -5,6 +5,7 @@ pipeline {
 		DOCKER_USERNAME = credentials('DOCKER_USERNAME')
 		DOCKER_ACCESS_TOKEN = credentials('DOCKER_ACCESS_TOKEN')
 		GIT_REPO = credentials('GIT_REPO')
+		DOCKER_IMAGE = "jenkins-demo-image"
 	}
 
 	stages {
@@ -14,10 +15,18 @@ pipeline {
 			steps {
 
 				git url: "${env.GIT_REPO}" , branch: 'main'
+				echo $?
 			}
 	
 		}
-	
+		
+		stage ('Build Docker Image'){
+		
+			steps{
+			
+				sh 'docker image build -t ${env.DOCKER_USERNAME}/${DOCKER_IMAGE} .'	
+			}
+		}	
 	}
 
 }
