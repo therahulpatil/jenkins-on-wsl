@@ -2,7 +2,7 @@ pipeline {
 	agent any
 	
 	environment {
-
+		DOCKER_USERNAME = ${DOCKER_USERNAME}
 		
 	}
 
