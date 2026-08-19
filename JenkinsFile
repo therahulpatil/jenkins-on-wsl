@@ -22,5 +22,34 @@ pipeline {
                 sh 'docker image build -t $DOCKER_USERNAME/$DOCKER_IMAGE:$IMAGE_TAG -t $DOCKER_USERNAME/$DOCKER_IMAGE:latest .'
             }
         }
+        stage('Push Docker Image to DockerHub'){
+            steps {
+                // Login and Push image to Dockerhub
+                   sh '''
+                        echo "$DOCKER_ACCESS_TOKEN" | docker login -u "$DOCKER_USERNAME" --password-stdin
+                        docker push $DOCKER_USERNAME/$DOCKER_IMAGE:$IMAGE_TAG
+                        docker push $DOCKER_USERNAME/$DOCKER_IMAGE:latest
+                        docekr logout
+                    '''
+                                
+    
+            }
+            
+        }
     }
+
+
+// Post Actions
+
+    post {
+        always {
+            sh 'docker rmi -f $DOCKER_USERNAME/$DOCKER_IMAGE:$IMAGE_TAG $DOCKER_USERNAME/$DOCKER_IMAGE:latest || true'
+        }
+
+
+//Post Action End
+    }
+
+
+//Pipeline End    
 }
