@@ -13,7 +13,7 @@ pipeline {
 	
 			steps {
 
-				git '${GIT_REPO}'
+				git env.GIT_REPO
 			}
 	
 		}
