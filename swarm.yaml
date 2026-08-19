@@ -19,9 +19,6 @@ services:
             parallelism: 1
             delay: 10s
         
-        networks:
-            -jenkins-network
-
 networks:
     jenkins-network:
         driver: overlay
