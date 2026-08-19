@@ -15,7 +15,7 @@ services:
                 delay : 10s
                 order: start-first
         
-            rollback_confifg:
+            rollback_config:
                 parallelism: 1
                 delay: 10s
         
