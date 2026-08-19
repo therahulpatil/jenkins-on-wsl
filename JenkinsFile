@@ -3,7 +3,7 @@ pipeline {
 	
 	environment {
 		DOCKER_USERNAME = credentials('DOCKER_USERNAME')
-		DOCKER_ACCESS_TOKEN = "${DOCKER_ACCESS_TOKEN}"
+		DOCKER_ACCESS_TOKEN = credentials('DOCKER_ACCESS_TOKEN')
 		GIT_REPO = credentials('GIT_REPO')
 	}
 
@@ -13,7 +13,7 @@ pipeline {
 	
 			steps {
 
-				git env.GIT_REPO
+				git url: "${env.GIT_REPO}" , branch: 'main'
 			}
 	
 		}
