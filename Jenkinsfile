@@ -40,7 +40,9 @@ pipeline {
 
         stage('Run Docker Container'){
             steps{
-                sh 'docker container run -d --name $CONTAINER_NAME -p 9090:80 $DOCKER_USERNAME/$DOCKER_IMAGE:latest'
+                sh 'docker container run --rm -d --name $CONTAINER_NAME -p 9090:80 $DOCKER_USERNAME/$DOCKER_IMAGE:latest'
+                docker ps --filter name='$CONTAINER_NAME'
+                curl -f http://localhost:9090
             }
         }
     }
