@@ -15,7 +15,7 @@ pipeline {
 			steps {
 
 				git url: "${env.GIT_REPO}" , branch: 'main'
-				echo $?
+				
 			}
 	
 		}
