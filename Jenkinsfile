@@ -77,7 +77,18 @@ pipeline {
 
     post {
         always {
-            sh 'docker rmi -f $DOCKER_USERNAME/$DOCKER_IMAGE:$IMAGE_TAG $DOCKER_USERNAME/$DOCKER_IMAGE:latest || true'
+           // sh 'docker rmi -f $DOCKER_USERNAME/$DOCKER_IMAGE:$IMAGE_TAG $DOCKER_USERNAME/$DOCKER_IMAGE:latest || true'
+
+            sh '''
+
+                docker container prune -f
+    
+                docker image prune -f
+            
+                docker builder prune -f
+
+            '''
+
         }
 
 
