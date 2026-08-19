@@ -1,0 +1,23 @@
+pipeline {
+	agent any
+	
+	environment {
+
+		
+	}
+
+	stages {
+
+		stage ('Stage 1') {
+	
+		
+			steps {
+
+				sh 'echo "Stage 1"'
+			}
+	
+		}
+	
+	}
+
+}
